@@ -8,12 +8,14 @@ import java.util.Map;
 public class LoginUI extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
+    String username;
+    String password;
     ImageIcon logo = new ImageIcon("LOGO.jpg");
 
     public LoginUI() {
         setTitle("Login");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(350, 250);
+        setSize(400, 300);
         setResizable(false);
         Color backgroundColor = new Color(52, 152, 219);
         Color buttonColor = new Color(46, 204, 113);
@@ -54,15 +56,18 @@ public class LoginUI extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Bank bank = new Bank("Test");
+                Bank bank = new Bank("Converse");
                 String databaseFilePath = "database/users.txt";
                 Map<String, User> users = User.loadUsers(databaseFilePath, bank);
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+                username = usernameField.getText();
+                password = new String(passwordField.getPassword());
                 AuthenticationSystem authenticationSystem = new AuthenticationSystem(users, databaseFilePath, bank);
                 if (!(authenticationSystem.loginUser(username, password))){
                     JOptionPane.showMessageDialog(null, "Incorrect username or password!",
                             "E-Transit", JOptionPane.ERROR_MESSAGE);
+                }else {
+                    dispose();
+                    new DashboardUIRegular(new User(username, password, "RegularUser", bank), new Account(username));
                 }
             }
         });
