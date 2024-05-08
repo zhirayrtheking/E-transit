@@ -42,6 +42,10 @@ public class Bank {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     // Method to process a transaction between two users within the same bank
     public boolean processTransaction(Transaction transaction) {
         User sourceUser = transaction.getSourceUser();

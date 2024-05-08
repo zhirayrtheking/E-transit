@@ -9,6 +9,7 @@ public class SignUpUI extends JFrame {
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JPasswordField passwordField;
+    private JTextField bankField;
     ImageIcon logo = new ImageIcon("LOGO.jpg");
 
     public SignUpUI() {
@@ -58,14 +59,25 @@ public class SignUpUI extends JFrame {
         gbc.gridx = 0;
         gbc.gridy++;
 
-        JButton loginButton = new JButton("Login");
-        loginButton.setBackground(buttonColor); // Set background color
-        loginButton.setForeground(textColor); // Set text color
-        loginButton.setFocusPainted(false);
-        loginButton.addActionListener(new ActionListener() {
+        JLabel bankLabel = new JLabel("Bank:");
+        bankLabel.setForeground(textColor); // Set text color
+        bankField = new JTextField(20);
+        bankField.setBorder(new EmptyBorder(0,0,0,0));
+        panel.add(bankLabel, gbc);
+        gbc.gridx++;
+        panel.add(bankField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+
+        JButton signUpButton = new JButton("Sign-Up");
+        signUpButton.setBackground(buttonColor); // Set background color
+        signUpButton.setForeground(textColor); // Set text color
+        signUpButton.setFocusPainted(false);
+        signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Bank bank = new Bank("Test");
+                String bankText = bankField.getText();
+                Bank bank = new Bank(bankText);
                 String databaseFilePath = "database/users.txt";
                 Map<String, User> users = User.loadUsers(databaseFilePath, bank);
                 String firstName = firstNameField.getText();
@@ -89,7 +101,7 @@ public class SignUpUI extends JFrame {
             }
         });
         gbc.gridwidth = 2;
-        panel.add(loginButton, gbc);
+        panel.add(signUpButton, gbc);
 
         add(panel);
         setLocationRelativeTo(null);

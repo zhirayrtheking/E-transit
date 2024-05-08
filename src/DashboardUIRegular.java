@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
+
 
 public class DashboardUIRegular extends JFrame {
     private JLabel usernameLabel;
@@ -12,17 +12,26 @@ public class DashboardUIRegular extends JFrame {
     private JButton withdrawButton;
     private JTextArea transactionHistory;
     private JButton backButton;
+    ImageIcon logo = new ImageIcon("LOGO.jpg");
+
+
 
     public DashboardUIRegular(User user, Account userAccount) {
+        userAccount.updateAccountFile();
         setTitle(user.getUsername() + " System Dashboard");
         setSize(500, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+        setBackground(new Color(41, 128, 185));
+        setIconImage(logo.getImage());
+        setResizable(false);
         // Upper left corner: Username
         JPanel usernamePanel = new JPanel();
-        usernamePanel.setBackground(new Color(230, 230, 250));
+        usernamePanel.setBackground(new Color(52, 152, 219));
         usernameLabel = new JLabel("Welcome " + user.getUsername());
+        usernameLabel.setFont(new Font("Gardona", Font.BOLD, 20));
+        usernameLabel.setForeground(Color.WHITE);
         usernamePanel.add(usernameLabel);
         add(usernamePanel, BorderLayout.NORTH);
 
@@ -30,73 +39,77 @@ public class DashboardUIRegular extends JFrame {
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new GridLayout(4, 1));
 
-        balanceLabel = new JLabel("Balance: $" +  userAccount.getBalance());
+        balanceLabel = new JLabel("Balance: $" + userAccount.getBalance());
+        balanceLabel.setHorizontalAlignment(SwingConstants.CENTER);
         centerPanel.add(balanceLabel);
 
         transferButton = new JButton("Transfer");
+        transferButton.setBackground(new Color(44, 62, 80)); // Dark blue
+        transferButton.setForeground(Color.WHITE);
+        transferButton.setFocusPainted(false);
         centerPanel.add(transferButton);
 
         depositButton = new JButton("Deposit");
+        depositButton.setBackground(new Color(39, 174, 96)); // Green
+        depositButton.setForeground(Color.WHITE);
+        depositButton.setFocusPainted(false);
         centerPanel.add(depositButton);
 
         withdrawButton = new JButton("Withdraw");
+        withdrawButton.setBackground(new Color(231, 76, 60)); // Red
+        withdrawButton.setForeground(Color.WHITE);
+        withdrawButton.setFocusPainted(false);
         centerPanel.add(withdrawButton);
 
         add(centerPanel, BorderLayout.CENTER);
 
-        // Lower right corner: Transaction history
-        JPanel transactionPanel = new JPanel();
-        transactionPanel.setLayout(new BorderLayout());
 
-        JLabel historyLabel = new JLabel("Transaction History:");
-        transactionPanel.add(historyLabel, BorderLayout.NORTH);
-
-        transactionHistory = new JTextArea(10, 20);
-        transactionHistory.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(transactionHistory);
-        transactionPanel.add(scrollPane, BorderLayout.CENTER);
-
-        add(transactionPanel, BorderLayout.EAST);
 
         // Lower left corner: Back button
         JPanel backButtonPanel = new JPanel();
-        backButtonPanel.setBackground(new Color(240, 248, 255));
-        backButton = new JButton("Back");
+        backButtonPanel.setBackground(new Color(52, 73, 94));
+        backButton = new JButton("Exit");
+        backButton.setBackground(new Color(192, 57, 43)); // Dark red
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(false);
         backButtonPanel.add(backButton);
         add(backButtonPanel, BorderLayout.SOUTH);
 
         setVisible(true);
 
+
+
         // Action listeners for buttons
         transferButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle transfer button action
-                // Example: Open transfer window/dialog
+
             }
         });
 
         depositButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle deposit button action
-                // Example: Open deposit window/dialog
+                dispose();
+                new DepositUI(userAccount, user);
+
             }
         });
 
         withdrawButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle withdraw button action
-                // Example: Open withdraw window/dialog
+                dispose();
+                new WithdrawUI(userAccount, user);
             }
         });
 
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle back button action
-                // Example: Close current window and return to previous window
+                dispose();
+                MainPageUI mainPage = new MainPageUI();
+                mainPage.setVisible(true);
             }
         });
     }

@@ -60,7 +60,7 @@ public class Account {
             // Update balance (overwrite existing balance)
             writer.println("Balance: " + balance);
 
-            System.out.println("Account file updated successfully.");
+
         } catch (IOException e) {
             System.out.println("Error updating account file: " + e.getMessage());
         }
@@ -96,7 +96,7 @@ public class Account {
         balance += amount;
         transactionHistory.add("Deposit: +" + amount);
         updateAccountFile(); // Update account file immediately after deposit
-        System.out.println("Deposit of " + amount + " successfully made to account " + accountNumber);
+
     }
 
     public boolean withdraw(double amount) {
@@ -104,10 +104,9 @@ public class Account {
             balance -= amount;
             transactionHistory.add("Withdrawal: -" + amount);
             updateAccountFile(); // Update account file immediately after withdrawal
-            System.out.println("Withdrawal of " + amount + " successfully made from account " + accountNumber);
+
             return true; // Withdrawal successful
         } else {
-            System.out.println("Insufficient funds in account " + accountNumber);
             return false; // Insufficient funds
         }
     }

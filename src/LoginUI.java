@@ -8,6 +8,7 @@ import java.util.Map;
 public class LoginUI extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
+    private JTextField bankField;
     String username;
     String password;
     ImageIcon logo = new ImageIcon("LOGO.jpg");
@@ -49,6 +50,16 @@ public class LoginUI extends JFrame {
         gbc.gridx = 0;
         gbc.gridy++;
 
+        JLabel bankLabel = new JLabel("Bank:");
+        bankLabel.setForeground(textColor); // Set text color
+        bankField = new JTextField(20);
+        bankField.setBorder(new EmptyBorder(0,0,0,0));
+        panel.add(bankLabel, gbc);
+        gbc.gridx++;
+        panel.add(bankField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+
         JButton loginButton = new JButton("Login");
         loginButton.setBackground(buttonColor); // Set background color
         loginButton.setForeground(textColor); // Set text color
@@ -56,7 +67,8 @@ public class LoginUI extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Bank bank = new Bank("Converse");
+                String bankText = bankField.getText();
+                Bank bank = new Bank(bankText);
                 String databaseFilePath = "database/users.txt";
                 Map<String, User> users = User.loadUsers(databaseFilePath, bank);
                 username = usernameField.getText();

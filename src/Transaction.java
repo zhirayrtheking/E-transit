@@ -2,21 +2,14 @@ public class Transaction {
     private final User sourceUser;
     private final User destinationUser;
     private final double amount;
-    private TransactionStatus status;
+
 
     public Transaction(User sourceUser, User destinationUser, double amount) {
         this.sourceUser = sourceUser;
         this.destinationUser = destinationUser;
         this.amount = amount;
-        this.status = TransactionStatus.PENDING;
     }
 
-    // Enum to represent transaction status
-    public enum TransactionStatus {
-        PENDING,
-        APPROVED,
-        DENIED
-    }
 
     // Getter methods for transaction properties
     public User getSourceUser() {
@@ -31,17 +24,22 @@ public class Transaction {
         return amount;
     }
 
-    public TransactionStatus getStatus() {
-        return status;
+    public boolean transferTo(User source, User destination){
+        Account sourceAcc = new Account(source.getUsername());
+        Account destinationAcc = new Account(destination.getUsername());
+
+        double commission = 0.05;
+        double sourceBalance = sourceAcc.getBalance();
+        double destinationBalance = destinationAcc.getBalance();
+
+        if (source.getBank().getName() != destination.getBank().getName()){
+            destinationBalance += sourceBalance * commission;
+            return true;
+        } else if (source.getBank().getName().equals(destination.getBank().getName())) {
+            destinationBalance += sourceBalance;
+            return true;
+        }
+        return false;
     }
 
-    // Method to approve the transaction
-    public void approve() {
-        this.status = TransactionStatus.APPROVED;
-    }
-
-    // Method to deny the transaction
-    public void deny() {
-        this.status = TransactionStatus.DENIED;
-    }
 }

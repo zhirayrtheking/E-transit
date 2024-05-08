@@ -61,6 +61,10 @@ public class User {
         return role;
     }
 
+    public Bank getBank() {
+        return bank;
+    }
+
     public boolean hasRole(String roleName) {
         return role.equals(roleName);
     }
