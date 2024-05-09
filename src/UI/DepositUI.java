@@ -1,7 +1,10 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import banksystem.*;
 
 public class DepositUI extends JFrame {
     private JLabel depositLabel;
@@ -44,7 +47,7 @@ public class DepositUI extends JFrame {
                 // Get the amount from the text field
                 String amountText = amountField.getText();
 
-                // Convert amount to double (you might want to add validation here)
+                // Convert amount to double
                 double amount = Double.parseDouble(amountText);
 
                 userAccount.deposit(amount);

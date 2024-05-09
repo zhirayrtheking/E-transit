@@ -1,7 +1,10 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import banksystem.*;
 
 public class WithdrawUI extends JFrame {
     private JLabel withdrawLabel;
@@ -44,7 +47,7 @@ public class WithdrawUI extends JFrame {
                 // Get the amount from the text field
                 String amountText = amountField.getText();
 
-                // Convert amount to double (you might want to add validation here)
+                // Convert amount to double
                 double amount = Double.parseDouble(amountText);
 
                 if (userAccount.withdraw(amount)){
@@ -53,9 +56,6 @@ public class WithdrawUI extends JFrame {
                 }else {
                     JOptionPane.showMessageDialog(null, "Insufficient funds in your account", "E-Transit", JOptionPane.ERROR_MESSAGE);
                 }
-
-
-
                 dispose();
                 new DashboardUIRegular(user, userAccount);
 

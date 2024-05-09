@@ -1,5 +1,10 @@
-import java.io.*;
-import java.nio.file.*;
+package banksystem;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +13,19 @@ public class Account {
     private double balance;
     private final List<String> transactionHistory;
     private final String accountFilePath;
+    private Bank bank;
 
-    public Account(String accountNumber) {
+    public Account(String accountNumber, Bank bank) {
         this.accountNumber = accountNumber;
         this.transactionHistory = new ArrayList<>();
         this.accountFilePath = accountNumber + ".txt"; // Update account file path
         createAccountFile(); // Ensure account file is created when account is instantiated
         this.balance = readBalanceFromFile();
+        this.bank = bank;
+    }
+
+    public Bank getBank() {
+        return bank;
     }
 
     private double readBalanceFromFile() {
@@ -109,5 +120,23 @@ public class Account {
         } else {
             return false; // Insufficient funds
         }
+    }
+
+    public boolean transferTo(Account source, Account destination, double amountToTransfer){
+        String sourceBankName = source.getBank().getName();
+        String destinationBankName = destination.getBank().getName();
+
+        double sourceBalance = source.getBalance();
+        double destinationBalance = destination.getBalance();
+        double commission = 0.05;
+
+        if (sourceBankName.equals(destinationBankName)){
+            destinationBalance += amountToTransfer;
+            return true;
+        }else if (!(sourceBankName.equals(destinationBankName))){
+            destinationBalance += amountToTransfer * commission;
+            return true;
+        }
+        return false;
     }
 }

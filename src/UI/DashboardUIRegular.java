@@ -1,8 +1,10 @@
+package UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import banksystem.*;
 
 public class DashboardUIRegular extends JFrame {
     private JLabel usernameLabel;
@@ -83,7 +85,8 @@ public class DashboardUIRegular extends JFrame {
         transferButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                new TransferUI(userAccount);
             }
         });
 

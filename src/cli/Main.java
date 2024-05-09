@@ -1,6 +1,8 @@
+package cli;
 import javax.swing.*;
 import java.util.Map;
-
+import banksystem.*;
+import UI.*;
 public class Main {
     public static void main(String[] args) {
         // Initialize the bank
@@ -10,9 +12,7 @@ public class Main {
         String databaseFilePath = "database/users.txt";
         Map<String, User> users = User.loadUsers(databaseFilePath, bank);
 
-//        // Create AuthenticationSystem instance and run
-//        AuthenticationSystem authSystem = new AuthenticationSystem(users, databaseFilePath, bank);
-//        authSystem.run();
+
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

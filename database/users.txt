@@ -17,3 +17,6 @@ marina_avagyan:marin123:RegularUser
 lll_aaa:la12:RegularUser
 test123_testyan:12345:RegularUser
 abra_kadabra:6969:RegularUser
+Knar_Atoyan:knar123:RegularUser
+Armen_Atoyan:armen123:RegularUser
+ani_atoyan:ani123:RegularUser

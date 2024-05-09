@@ -1,31 +1,28 @@
+package banksystem;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
     private final String username;
     private final String password;
     private final String role;
     private final Bank bank;
-    private final List<Transaction> transactions;
+
 
     public User(String username, String password, String role, Bank bank) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.bank = bank;
-        this.transactions = new ArrayList<>();
+
     }
 
-    public void initiateTransaction(User recipient, double amount) {
-        Transaction transaction = new Transaction(this, recipient, amount);
-        transactions.add(transaction); // Add the transaction to the user's transaction history
-        bank.processTransaction(transaction); // Process the transaction through the bank
-    }
+
+
 
     public static Map<String, User> loadUsers(String filePath, Bank bank) {
         Map<String, User> users = new HashMap<>();
@@ -50,7 +47,7 @@ public class User {
 
     public Account getAccount() {
         // Assuming each user has only one account
-        return new Account(username);
+        return new Account(username, bank);
     }
 
     public boolean authenticate(String enteredPassword) {
@@ -59,10 +56,6 @@ public class User {
 
     public String getRole() {
         return role;
-    }
-
-    public Bank getBank() {
-        return bank;
     }
 
     public boolean hasRole(String roleName) {

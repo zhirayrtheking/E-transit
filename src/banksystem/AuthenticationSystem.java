@@ -1,4 +1,6 @@
+package banksystem;
 import java.io.*;
+
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
@@ -27,7 +29,7 @@ public class AuthenticationSystem {
         }
     }
 
-    boolean loginUser(String username, String password) {
+    public boolean loginUser(String username, String password) {
 
         if (users.containsKey(username)) {
             User user = users.get(username);
